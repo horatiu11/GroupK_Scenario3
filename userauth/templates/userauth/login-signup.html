@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<!--
+	Landed by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+{% load static %}
+<html>
+	<head>
+		<title>ReferenceME</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+
+		<link rel="stylesheet" href="{% static 'userauth/assets/css/main.css' %}" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header">
+					<h1 id="logo"><a href="index.html">ReferenceME</a></h1>
+					<nav id="nav">
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="#" class="button special">Sign In/Register</a></li>
+						</ul>
+					</nav>
+				</header>
+
+			<!-- Main -->
+				<div id="main" class="wrapper style1">
+					<div class="container">
+						<header class="major">
+							<h2>ReferenceME</h2>
+							<p>Keep your citation lists updated</p>
+						</header>
+
+						<!-- Content -->
+							<section id="content">				
+							  <div class="form">
+							      
+							      <ul class="tab-group">
+							        <li class="tab active"><a href="#signup">Sign Up</a></li>
+							        <li class="tab"><a href="#login">Log In</a></li>
+							      </ul>
+							      
+							      <div class="tab-content">
+							        <div id="signup">   
+<!-- 							          <p><center>Sign Up for Free</center></p>
+ -->							          
+							          <form action="{% url 'userauth:signup'%}" method="post">
+							          {% csrf_token %}
+							          <div class="top-row">
+							            <div class="field-wrap">
+							              <label>
+							                First Name<span class="req">*</span>
+							              </label>
+							              <input type="text" name="firstname" id="firstNameField" required autocomplete="off" />
+							            </div>
+							        
+							            <div class="field-wrap">
+							              <label>
+							                Last Name<span class="req">*</span>
+							              </label>
+							              <input type="text"required name="lastname" id="lastNameField" autocomplete="off"/>
+							            </div>
+							          </div>
+
+							          <div class="field-wrap">
+							            <label>
+							              Username<span class="req">*</span>
+							            </label>
+							            <input type="text" name="user" id="usernameField" required autocomplete="off"/>
+							          </div>
+
+							          <div class="field-wrap">
+							            <label>
+							              Email Address<span class="req">*</span>
+							            </label>
+							            <input type="email" name="email" id="emailField" required autocomplete="off"/>
+							          </div>
+
+							          
+							          <div class="field-wrap">
+							            <label>
+							              Set A Password<span class="req">*</span>
+							            </label>
+							            <input type="password" name="password" id="passwordField" required autocomplete="off"/>
+							          </div>
+							          
+							            <div class="field-wrap">
+							            <label class="lil_space">
+							              Retype Your Password<span class="req">*</span>
+							            </label>
+							            <input type="password" name="repassword" id="rePasswordField" required autocomplete="off"/>
+							          </div>
+
+							          <div  class="middleasez">
+							          <button type="submit"  class="button special fit small" value="Sign Up"/>Sign Up</button>
+							      	</div>
+
+
+							          </form>
+
+							        </div>
+							        
+							        <div id="login">   
+							          <h1>Welcome Back!</h1>
+							          
+							          <form action="{% url 'userauth:signin'%}" method="post">
+							          {% csrf_token %}
+							            <div class="field-wrap">
+							            <label>
+							              Email Address<span class="req">*</span>
+							            </label>
+							            <input type="text" id="emailField" name="email" required autocomplete="off"/>
+							          </div>
+							          
+							          <div class="field-wrap">
+							            <label>
+							              Password<span class="req">*</span>
+							            </label>
+							            <input type="password" id="passwordField" name="password" required autocomplete="off"/>
+							          </div>
+							          
+<!-- 							    <p class="forgot"><a href="#">Forgot Password?</a></p>
+ -->							          
+    								<div  class="middleasez">
+							          <button type="submit"  class="button special fit small" value="Log In"/>Log In</button>
+							      	</div>
+							      	
+
+							          </form>
+
+							        </div>
+							        
+							      </div><!-- tab-content -->
+							</section>
+
+					</div>
+				</div>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="https://github.com/horatiu11/GroupK_Scenario3" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; ReferenceME. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'userauth/assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'userauth/assets/js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'userauth/assets/js/jquery.dropotron.min.js' %}"></script>
+			<script src="{% static 'userauth/assets/js/jquery.scrollex.min.js' %}"></script>
+			<script src="{% static 'userauth/assets/js/skel.min.js' %}"></script>
+			<script src="{% static 'userauth/assets/js/util.js' %}"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="{% static 'userauth/assets/js/main.js' %}"></script>
+
+	</body>
+</html>

@@ -1,15 +1,224 @@
-<h1>Sign Up</h1>
+<!DOCTYPE HTML>
+<!--
+	Landed by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+{% load static %}
 
-<form action="{% url 'userauth:login'%}" method="post">
-{% csrf_token %}
+<html>
+	<head>
+		<title>ReferenceME</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="{% static 'userauth/assets/css/main.css' %}" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body class="landing">
+		<div id="page-wrapper">
 
-	<input type="text" name="user" id="usernameField" placeholder="Username..."/>
+			<!-- Header -->
+				<header id="header">
+					<h1 id="logo"><a href="index.html">ReferenceME</a></h1>
+					<nav id="nav">
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="login-signup.html" class="button special">Sign In/Register</a></li>
+						</ul>
+					</nav>
+				</header>
 
-    <input type="text" name="email" id="emailField" placeholder="Email..." />
+			<!-- Banner -->
+				<section id="banner">
+					<div class="content">
+						<header>
+							<h2>The perfect place for your citations.</h2>
+							<p>Don't worry anymore about your reference list.<br />
+							Keep it tidy with us.</p>
+						</header>
+						<span class="image"><img src="{% static 'userauth/images/pic01.jpg' %}" alt="" /></span>
+					</div>
+					<a href="#first" class="goto-next scrolly">Next</a>
+				</section>
+					
 
-    <input type="password" name="password" id="passwordField" placeholder="Password..." />
+			<!-- One -->
+			<section id="first" class="spotlight style1 bottom">
+					<span class="image fit main"><img src="{% static 'userauth/images/pic02.jpg' %}" alt="" /></span>
+					<div class="content">
+						<div class="container">
+							<div class="row">
+								<div class="4u 12u$(medium)">
+									<header>
+										<h2><center>Create here your first reference list!</center></h2>
+										<p><center>We can help you to keep track of all your <br>quoted materials</center></p>
+									</header>
+								</div>
+								<div class="4u 12u$(medium)">
+									<p>Don't waste time creating the reference list for your
+										on your own! We can help you by offering you a new way
+										of keeping track of all your references. <br>
+										Have you been working on your final essay for weeks? Join us today and you don't have to worry about your citations anymore!</p>
+								</div>
+								<div class="4u$ 12u$(medium)">
+									<p>Morbi enim nascetur et placerat lorem sed iaculis neque ante
+									adipiscing adipiscing metus massa. Blandit orci porttitor semper.
+									Arcu phasellus tortor enim mi mi nisi praesent adipiscing. Integer
+									mi sed nascetur cep aliquet augue varius tempus. Feugiat lorem
+									ipsum dolor nullam.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<a href="#referenceadd" class="goto-next scrolly">Next</a>
+				</section> 
 
-    <input type="password" name="repassword" id="rePasswordField" placeholder="Re-type password..." />
-    
-<input type="submit" value="Sign Up" />
-</form>
+			<!-- Two -->
+<!-- 				<section id="two" class="spotlight style2 right">
+					<span class="image fit main"><img src="images/pic03.jpg" alt="" /></span>
+					<div class="content">
+						<header>
+							<h2>Interdum amet non magna accumsan</h2>
+							<p>Nunc commodo accumsan eget id nisi eu col volutpat magna</p>
+						</header>
+						<p>Feugiat accumsan lorem eu ac lorem amet ac arcu phasellus tortor enim mi mi nisi praesent adipiscing. Integer mi sed nascetur cep aliquet augue varius tempus lobortis porttitor lorem et accumsan consequat adipiscing lorem.</p>
+						<ul class="actions">
+							<li><a href="#" class="button">Learn More</a></li>
+						</ul>
+					</div>
+					<a href="#three" class="goto-next scrolly">Next</a>
+				</section> -->
+
+			<!-- Three -->
+<!-- 				<section id="three" class="spotlight style3 left">
+					<span class="image fit main bottom"><img src="images/pic04.jpg" alt="" /></span>
+					<div class="content">
+						<header>
+							<h2>Interdum felis blandit praesent sed augue</h2>
+							<p>Accumsan integer ultricies aliquam vel massa sapien phasellus</p>
+						</header>
+						<p>Feugiat accumsan lorem eu ac lorem amet ac arcu phasellus tortor enim mi mi nisi praesent adipiscing. Integer mi sed nascetur cep aliquet augue varius tempus lobortis porttitor lorem et accumsan consequat adipiscing lorem.</p>
+						<ul class="actions">
+							<li><a href="#" class="button">Learn More</a></li>
+						</ul>
+					</div>
+					<a href="#four" class="goto-next scrolly">Next</a>
+				</section> -->
+
+			<!-- Four -->
+				<section id="referenceadd" class="wrapper style1 special fade-up">
+					<div class="container">
+						<header class="major">
+							<h2>Create your favourite reference lists</h2>
+							<p>Don't forget to cite all your favourite sources while working on your projects!</p>
+						</header>
+							<!-- Form -->
+							<section id ="reference">
+								<form method="post" action="#">
+									{% csrf_token %}
+									<div class="row uniform 50%">
+										<div class="6u 12u$(xsmall)">
+											<input type="text" name="title" id="title" value="" placeholder="Title" />
+										</div>
+										<div class="6u 12u$(xsmall)">
+											<input type="text" name="autname" id="autname" value="" placeholder="Author's Name" />
+										</div>
+										<div class="6u 12u$(xsmall)">
+											<input type="text" name="urlink" id="urlink" value="" placeholder="URL" />
+										</div>
+
+										<div class="6u 12u$">
+											<div class="select-wrapper">
+												<select name="category" id="category">
+													<option value="">- Source -</option>
+													<option value="1">Website</option>
+													<option value="2">Book</option>
+													<option value="3">Journal Article</option>
+													<option value="4">Newspaper</option>
+													<option value="5">Blog</option>
+												</select>
+											</div>
+										</div>
+										<!-- <div class="4u 12u$(medium)">
+											<input type="radio" id="priority-low" name="priority" checked>
+											<label for="priority-low">Low Priority</label>
+										</div>
+										<div class="4u 12u$(medium)">
+											<input type="radio" id="priority-normal" name="priority">
+											<label for="priority-normal">Normal Priority</label>
+										</div>
+										<div class="4u$ 12u$(medium)">
+											<input type="radio" id="priority-high" name="priority">
+											<label for="priority-high">High Priority</label>
+										</div>
+										<div class="6u 12u$(medium)">
+											<input type="checkbox" id="copy" name="copy">
+											<label for="copy">Email me a copy of this message</label>
+										</div>
+										<div class="6u$ 12u$(medium)">
+											<input type="checkbox" id="human" name="human" checked>
+											<label for="human">I am a human and not a robot</label>
+										</div> -->
+										<div class="12u$">
+											<textarea name="message" id="message" placeholder="Write your notes" rows="4"></textarea>
+										</div>
+										<div class="12u$">
+											<ul class="actions">
+												<li><input type="submit" value="Create List" class="special" /></li>
+												<li><input type="reset" value="Log In" /></li>
+											</ul>
+										</div>
+									</div>
+								</form>
+							</section>
+
+<!-- 						<footer class="major">
+							<ul class="actions">
+								<li><a href="#" class="button">Magna sed feugiat</a></li>
+							</ul>
+						</footer>
+ -->					</div>
+				</section>
+
+			<!-- Five -->
+<!-- 				<section id="five" class="wrapper style2 special fade">
+					<div class="container">
+						<header>
+							<h2>Magna faucibus lorem diam</h2>
+							<p>Ante metus praesent faucibus ante integer id accumsan eleifend</p>
+						</header>
+						<form method="post" action="#" class="container 50%">
+							<div class="row uniform 50%">
+								<div class="8u 12u$(xsmall)"><input type="email" name="email" id="email" placeholder="Your Email Address" /></div>
+								<div class="4u$ 12u$(xsmall)"><input type="submit" value="Get Started" class="fit special" /></div>
+							</div>
+						</form>
+					</div>
+				</section>
+ -->
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="https://github.com/horatiu11/GroupK_Scenario3" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; ReferenceME. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'userauth/assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'userauth/assets/js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'userauth/assets/js/jquery.dropotron.min.js' %}"></script>
+			<script src="{% static 'userauth/assets/js/jquery.scrollex.min.js' %}"></script>
+			<script src="{% static 'userauth/assets/js/skel.min.js' %}"></script>
+			<script src="{% static 'userauth/assets/js/util.js' %}"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="{% static 'userauth/assets/js/main.js' %}"></script>
+
+	</body>
+</html>

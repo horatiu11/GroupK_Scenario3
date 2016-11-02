@@ -4,11 +4,15 @@ from django.urls import reverse
 from django.core import validators
 
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.shortcuts import redirect
 
 def index(request):
-    return render(request, 'userauth/index.html')
+    return render(request, 'userauth/login-signup.html')
 
-def login(request):
+def signup(request):
+	firstname = request.POST['firstname']
+	lastname = request.POST['lastname']
 	user = request.POST['user']
 	email = request.POST['email']
 	password = request.POST['password']
@@ -28,8 +32,24 @@ def login(request):
 	except:
 		return HttpResponse('Email is not valid!')
 	
-	user = User.objects.create_user(user)
-	user.email = email
-	user.password = password
+	if User.objects.filter(email=email).exists():
+		return HttpResponse("Email already exists!")
+
+	user = User.objects.create_user(user, email, password)
+	user.first_name = firstname
+	user.last_name = lastname
 	user.save()
 	return HttpResponseRedirect(reverse('userauth:index'))
+
+def signin(request):
+	email = request.POST['email']
+	password =  request.POST['password']
+	user1 = User.objects.get(email = email)
+	user = authenticate(username = user1.username, password = password)
+	if user is not None:
+		login(request, user)
+		return HttpResponseRedirect(reverse('userauth:index'))
+	else:
+		return HttpResponse('Email or password did not match')
+
+
