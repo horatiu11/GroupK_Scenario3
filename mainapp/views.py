@@ -8,7 +8,10 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 
 def index(request):
-    return render(request, 'userauth/login-signup.html')
+    return render(request, 'mainapp/index.html')
+
+def authentication(request):
+	return render(request, 'mainapp/login-signup.html')
 
 def signup(request):
 	firstname = request.POST['firstname']
@@ -39,16 +42,17 @@ def signup(request):
 	user.first_name = firstname
 	user.last_name = lastname
 	user.save()
-	return HttpResponseRedirect(reverse('userauth:index'))
+	return HttpResponseRedirect(reverse('mainapp:index'))
 
 def signin(request):
 	email = request.POST['email']
 	password =  request.POST['password']
 	user1 = User.objects.get(email = email)
+	#return HttpResponse(user1.password);
 	user = authenticate(username = user1.username, password = password)
 	if user is not None:
 		login(request, user)
-		return HttpResponseRedirect(reverse('userauth:index'))
+		return HttpResponseRedirect(reverse('mainapp:index'))
 	else:
 		return HttpResponse('Email or password did not match')
 
