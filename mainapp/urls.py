@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^addref/$', views.addref, name='addref'),
     url(r'^deleteref/$', views.deleteref, name='deleteref'),
     url(r'^deletelist/$', views.deletelist, name='deletelist'),
+    url(r'^saveref/$', views.saveref, name='saveref'),
 ]

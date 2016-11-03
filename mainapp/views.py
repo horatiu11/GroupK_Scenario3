@@ -113,3 +113,22 @@ def deletelist(request):
 	ReferenceList.objects.filter(id = ID).delete()
 
 	return HttpResponseRedirect(reverse('mainapp:mainpage'))
+
+def saveref(request):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect(reverse('mainapp:authentication'))
+	title = request.POST['title']
+	author =  request.POST['author']
+	link =  request.POST['urlink']
+	source =  request.POST['source']
+	notes = request.POST['notes']
+
+	u = request.user
+
+	ref = Reference.objects.get()#needs completing
+	ref.title = title
+	ref.author = author
+	ref.link = link
+	ref.source = source
+	ref.notes = notes
+	ref.save()

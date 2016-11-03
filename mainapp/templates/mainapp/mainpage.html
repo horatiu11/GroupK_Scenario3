@@ -4,16 +4,17 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
+{% load static %}
 <html>
 	<head>
 		<title>ReferenceME</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="{% static 'mainapp/assets/css/main.css' %}" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<link rel="stylesheet" href="assets/css/bootstrap.minn.css"/>
+		<link rel="stylesheet" href="{% static 'mainapp/assets/css/bootstrap.minn.css' %}"/>
 
   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -24,11 +25,12 @@
 
 			<!-- Header -->
 				<header id="header">
-					<h1 id="logo"><a href="index.html">ReferenceME</a></h1>
+					<h1 id="logo"><a href="{% url 'mainapp:index' %}">ReferenceME</a></h1>
 					<nav id="nav">
 						<ul>
-							<li><a href="index.html">Home</a></li>
-							<li><a href="#" class="button special">Log Out</a></li>
+							<li><p>Welcome, {{ request.user.first_name }}!</p></li>
+							<li><a href="{% url 'mainapp:index' %}">Home</a></li>
+							<li><a href="{% url 'mainapp:signout' %}" class="button special">Log Out</a></li>
 						</ul>
 					</nav>
 				</header>
@@ -40,24 +42,25 @@
 						</header>
 							<!-- Form -->
 							<section id ="reference">
-								<form method="post" action="#">
+								<form method="post" action="{% url 'mainapp:addref'%}">
+									{% csrf_token %}
 									<div class="row uniform 50%">
 										<div class="6u 12u$(xsmall)">
 											<input type="text" name="title" id="title" value="" placeholder="Title" />
 										</div>
 										<div class="6u 12u$(xsmall)">
-											<input type="text" name="autname" id="autname" value="" placeholder="Author's Name" />
+											<input type="text" name="author" id="author" value="" placeholder="Author's Name" />
 										</div>
 										<div class="6u 12u$(xsmall)">
 											<input type="text" name="urlink" id="urlink" value="" placeholder="URL" />
 										</div>
 
 										<div class="6u 12u$(xsmall)">
-											<input type="text" name="souce" id="source" value="" placeholder="Source Type" />
+											<input type="text" name="source" id="source" value="" placeholder="Source Type" />
 										</div>
 
 										<div class="12u$">
-											<textarea name="message" id="message" placeholder="Write your notes" rows="2"></textarea>
+											<textarea name="notes" id="notes" placeholder="Write your notes" rows="2"></textarea>
 										</div>
 										
 
@@ -66,9 +69,9 @@
 												<select name="category" id="category">
 													<option value="">Select your reference List   </option>
 													<option value="newlist">Create new list</option>
-													<option value="1">List1</option>
-													<option value="2">List2</option>
-													<option value="3">List3</option>
+													{% for list in referenceList %}
+													<option value="1">{{list.name}}</option>
+													{% endfor %}
 												</select>
 											</div>
 										</div>
@@ -105,171 +108,69 @@
 						<!-- Content -->
 							<section id="content">			
 
-	
+							{% for list in referencesLists %}
 							  <div class="resultform">
-							  	<header><h3 class="major"><b><center>List Number 1</center></b></h2></header><br>
+							  	<header><h3 class="major"><b><center>{{ list.name }}</center></b></h2></header><br>
 
+							  	{% for reference in list.reference_set.all %}
 							  	<div class="panel panel-default">
 							      <div class="panel-heading">
 							        <h4 class="panel-title">
-							          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" align="center">Reference 1</a>
+							          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" align="center">{{reference.title}}</a>
 							        </h4>
 							      </div>
 							    <div id="collapse1" class="panel-collapse collapse">
 							    <div class="panel-body">
 <!-- 							    	Content of the Reference -->
-        						<h3><b><center>Reference 1</center></b></h3>
+        						<h3><b><center>{{reference.title}}</center></b></h3>
 							  	<div><b>Title: </b></div>
 								<div class="12u 12u$(xsmall)">
-								<input type="text" name="title" id="showtitle" value="" placeholder="" /></div>
+								<input type="text" name="title" id="showtitle" value="{{reference.title}}" placeholder="" /></div>
 
 								<div><b>Author's Name: </b></div>
 								<div class="12u 12u$(xsmall)">
-								<input type="text" name="autname" id="showautname" value="" placeholder="" /></div>
+								<input type="text" name="author" id="showautname" value="{{reference.author}}" placeholder="" /></div>
 
 
 								<div><b>Source: </b></div>
 								<div class="12u 12u$(xsmall)">
-								<input type="text" name="category" id="showcategory" value="" placeholder="" /></div>
+								<input type="text" name="source" id="showcategory" value="{{reference.source}}" placeholder="" /></div>
 
 							  	<div><b>URL: </b></div>
 							  	<div class="12u 12u$(xsmall)">
-								<input type="text" name="urlink" id="showurlink" value="" placeholder="" /></div>
+								<input type="text" name="urlink" id="showurlink" value="{{reference.link}}" placeholder="" /></div>
 
 							  	<div><b>Notes: </b></div>
 							  	<div class="12u 12u$(xsmall)">
-								<textarea  name="message" id="showmessage" value="" placeholder=""></textarea></div>
+								<textarea  name="notes" id="showmessage" value="" placeholder="">{{reference.notes}}</textarea></div>
 								<br>
 								<div class="middleasezbutton">
 									<div class="row">
 										<div class="3u 6u$(medium) 12u$(xsmall)">
+											<!--CURRENTLY THE EDIT BUTTON IS LINKED TO addREF -->
 											<ul class="actions vertical small">
 												<li><button onclick="myFunction()" class="button special fit small"/>Edit</button></li>
 											</ul>
 										</div>
 										<div class="3u 6u$(medium) 12u$(xsmall)">
 											<ul class="actions vertical small">
-												<li><button onclick="myFunction()" class="button special fit small"/>Save</button></li>
+												<li><button onclick="location.href='{% url 'mainapp:saveref'%}'" class="button special fit small"/>Save</button></li>
 											</ul>
 										</div>
 										<div class="3u$ 6u$(medium) 12u$(xsmall)">
 											<ul class="actions vertical small">
-												<li><button type="submit"  class="button special fit small"/>Delete</button></li>
+												<li><button type="submit"
+												onClick="location.href='{% url 'mainapp:deleteref'%}'"  class="button special fit small"/>Delete</button></li>
 											</ul>
 										</div>
 									</div>
 								</div>
 							  </div></div>
 						    </div>
-<!-- 						    Reference2 -->
-  								<div class="panel panel-default">
-							      <div class="panel-heading">
-							        <h4 class="panel-title">
-							          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" align="center">Reference 2</a>
-							        </h4>
-							      </div>
-							    <div id="collapse2" class="panel-collapse collapse">
-							    <div class="panel-body">
-        						<h3><b><center>Reference 2</center></b></h3>
-							  	<div><b>Title: </b></div>
-								<div class="12u 12u$(xsmall)">
-								<input type="text" name="title" id="showtitle" value="" placeholder="" /></div>
-
-								<div><b>Author's Name: </b></div>
-								<div class="12u 12u$(xsmall)">
-								<input type="text" name="autname" id="showautname" value="" placeholder="" /></div>
-
-
-								<div><b>Source: </b></div>
-								<div class="12u 12u$(xsmall)">
-								<input type="text" name="category" id="showcategory" value="" placeholder="" /></div>
-
-							  	<div><b>URL: </b></div>
-							  	<div class="12u 12u$(xsmall)">
-								<input type="text" name="urlink" id="showurlink" value="" placeholder="" /></div>
-
-							  	<div><b>Notes: </b></div>
-							  	<div class="12u 12u$(xsmall)">
-								<textarea  name="message" id="showmessage" value="" placeholder=""></textarea></div>
-								<br>
-								<div class="middleasezbutton">
-									<div class="row">
-										<div class="3u 6u$(medium) 12u$(xsmall)">
-											<ul class="actions vertical small">
-												<li><button onclick="myFunction()" class="button special fit small"/>Edit</button></li>
-											</ul>
-										</div>
-										<div class="3u 6u$(medium) 12u$(xsmall)">
-											<ul class="actions vertical small">
-												<li><button onclick="myFunction()" class="button special fit small"/>Save</button></li>
-											</ul>
-										</div>
-										<div class="3u$ 6u$(medium) 12u$(xsmall)">
-											<ul class="actions vertical small">
-												<li><button type="submit"  class="button special fit small"/>Delete</button></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							  </div></div>
-						    </div>
-
-<!-- 							Reference 3
- -->
-   								<div class="panel panel-default">
-							      <div class="panel-heading">
-							        <h4 class="panel-title">
-							          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" align="center">Reference 3</a>
-							        </h4>
-							      </div>
-							    <div id="collapse3" class="panel-collapse collapse">
-							    <div class="panel-body">
-        						<h3><b><center>Reference 3</center></b></h3>
-							  	<div><b>Title: </b></div>
-								<div class="12u 12u$(xsmall)">
-								<input type="text" name="title" id="showtitle" value="" placeholder="" /></div>
-
-								<div><b>Author's Name: </b></div>
-								<div class="12u 12u$(xsmall)">
-								<input type="text" name="autname" id="showautname" value="" placeholder="" /></div>
-
-
-								<div><b>Source: </b></div>
-								<div class="12u 12u$(xsmall)">
-								<input type="text" name="category" id="showcategory" value="" placeholder="" /></div>
-
-							  	<div><b>URL: </b></div>
-							  	<div class="12u 12u$(xsmall)">
-								<input type="text" name="urlink" id="showurlink" value="" placeholder="" /></div>
-
-							  	<div><b>Notes: </b></div>
-							  	<div class="12u 12u$(xsmall)">
-								<textarea  name="message" id="showmessage" value="" placeholder=""></textarea></div>
-								<br>
-								<div class="middleasezbutton">
-									<div class="row">
-										<div class="3u 6u$(medium) 12u$(xsmall)">
-											<ul class="actions vertical small">
-												<li><button onclick="myFunction()" class="button special fit small"/>Edit</button></li>
-											</ul>
-										</div>
-										<div class="3u 6u$(medium) 12u$(xsmall)">
-											<ul class="actions vertical small">
-												<li><button onclick="myFunction()" class="button special fit small"/>Save</button></li>
-											</ul>
-										</div>
-										<div class="3u$ 6u$(medium) 12u$(xsmall)">
-											<ul class="actions vertical small">
-												<li><button type="submit"  class="button special fit small"/>Delete</button></li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							  </div></div>
-						    </div>
+						    {% endfor %}
 
 						  </div>
-						 
+						 {% endfor %}
 							</section>
 					</div>
 				</div>
@@ -316,14 +217,14 @@
 	
 
 		<!-- Our Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/skel.min.js"></script>
-			<script src="assets/js/util.js"></script>
+			<script src="{% static 'mainapp/assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'mainapp/assets/js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'mainapp/assets/js/jquery.dropotron.min.js' %}"></script>
+			<script src="{% static 'mainapp/assets/js/jquery.scrollex.min.js' %}"></script>
+			<script src="{% static 'mainapp/assets/js/skel.min.js' %}"></script>
+			<script src="{% static 'mainapp/assets/js/util.js' %}"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="assets/js/main.js"></script>
+			<script src="{% static 'mainapp/assets/js/main.js' %}"></script>
 
 	</body>
 </html>
