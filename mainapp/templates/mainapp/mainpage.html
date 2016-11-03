@@ -147,6 +147,7 @@
 								<div class="middleasezbutton">
 									<div class="row">
 										<div class="3u 6u$(medium) 12u$(xsmall)">
+											
 											<!--CURRENTLY THE EDIT BUTTON IS LINKED TO addREF -->
 											<ul class="actions vertical small">
 												<li><button onclick="myFunction()" class="button special fit small"/>Edit</button></li>
@@ -162,13 +163,19 @@
 												<li><button type="submit"
 												onClick="location.href='{% url 'mainapp:deleteref'%}'"  class="button special fit small"/>Delete</button></li>
 											</ul>
+										
 										</div>
 									</div>
 								</div>
 							  </div></div>
 						    </div>
 						    {% endfor %}
-
+						    		<div class="3u$ 6u$(medium) 12u$(xsmall)">
+											<ul class="actions vertical small">
+												<li><button type="submit"
+												onClick="location.href='{% url 'mainapp:deletelist'%}'"  class="button special fit small"/>Delete List</button></li>
+											</ul>
+									</div>
 						  </div>
 						 {% endfor %}
 							</section>
