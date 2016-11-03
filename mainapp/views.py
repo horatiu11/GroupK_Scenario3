@@ -4,16 +4,31 @@ from django.urls import reverse
 from django.core import validators
 
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 
 def index(request):
-    return render(request, 'mainapp/index.html')
+	if request.user.is_authenticated:
+		return HttpResponseRedirect(reverse('mainapp:mainpage'))
+	return render(request, 'mainapp/index.html')
 
 def authentication(request):
+	if request.user.is_authenticated:
+		return HttpResponseRedirect(reverse('mainapp:mainpage'))
 	return render(request, 'mainapp/login-signup.html')
 
+def mainpage(request):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect(reverse('mainapp:authentication'))
+	return render(request, 'mainapp/mainpage.html')
+
+def signout(request):
+	logout(request)
+	return HttpResponseRedirect(reverse('mainapp:index'))
+
 def signup(request):
+	if request.user.is_authenticated:
+		return HttpResponseRedirect(reverse('mainapp:mainpage'))
 	firstname = request.POST['firstname']
 	lastname = request.POST['lastname']
 	user = request.POST['user']
@@ -45,6 +60,8 @@ def signup(request):
 	return HttpResponseRedirect(reverse('mainapp:index'))
 
 def signin(request):
+	if request.user.is_authenticated:
+		return HttpResponseRedirect(reverse('mainapp:mainpage'))
 	email = request.POST['email']
 	password =  request.POST['password']
 	user1 = User.objects.get(email = email)
