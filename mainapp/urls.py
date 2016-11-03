@@ -11,4 +11,6 @@ urlpatterns = [
     url(r'^mainpage/$', views.mainpage, name='mainpage'),
     url(r'^signout/$', views.signout, name='signout'),
     url(r'^addref/$', views.addref, name='addref'),
+    url(r'^deleteref/$', views.deleteref, name='deleteref'),
+    url(r'^deletelist/$', views.deletelist, name='deletelist'),
 ]

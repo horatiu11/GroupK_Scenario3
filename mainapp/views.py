@@ -23,9 +23,13 @@ def authentication(request):
 def mainpage(request):
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect(reverse('mainapp:authentication'))
-	reflist = ReferenceList.objects.get(owner = request.user)
-	references = Reference.objects.all()
-	context = {'referenceList' : reflist, 'references' : references}
+	try:
+		reflist = ReferenceList.objects.all().filter(owner = request.user)
+	except ReferenceList.DoesNotExist:
+		reflist = None
+	#return HttpResponse(reflist.hostdata_set.all())
+	#references = Reference.objects.all()
+	context = {'referencesLists' : reflist}#, 'references' : references}
 	return render(request, 'mainapp/mainpage.html', context)
 
 def signout(request):
@@ -90,13 +94,22 @@ def addref(request):
 
 	u = request.user
 
-	reflist = ReferenceList.objects.get(pk = 1)
-
-	if reflist is None:
-		reflist = ReferenceList(owner = u, name = "pula", createdAt = timezone.now())
-		reflist.save()
+	reflist = ReferenceList(owner = u, name = "pula", createdAt = timezone.now())
+	reflist.save()
 
 	ref = Reference(reference_list = reflist, title = title, author = author, website = link, source = source, notes = notes)
 	ref.save()
+
+	return HttpResponseRedirect(reverse('mainapp:mainpage'))
+
+def deleteref(request):
+	ID = request.POST['id']
+	Reference.objects.filter(id = ID).delete()
+
+	return HttpResponseRedirect(reverse('mainapp:mainpage'))
+
+def deletelist(request):
+	ID = request.POST['id']
+	ReferenceList.objects.filter(id = ID).delete()
 
 	return HttpResponseRedirect(reverse('mainapp:mainpage'))

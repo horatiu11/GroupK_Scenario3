@@ -87,14 +87,14 @@
 						<header class="major">
 							<h2>Keep track of all your references</h2>
 						</header>
-
+						{% for list in referencesLists %}
 						<!-- Content -->
 							<section id="content">				
 							  <div class="resultform">
-							  	<header><h2><b><center>{{ referenceList.name }}</center></b></h2></header>
+							  	<header><h2><b><center>{{ list.name }}</center></b></h2></header>
 								<h3 class="major"><b><center> </center></b></h3>
 
-								{% for reference in references %}
+								{% for reference in list.reference_set.all %}
 							  	<h3><b><center>Reference {{ reference.id }}</center></b></h3>
 							  	<div><b>Title: </b></div>
 								<input type="text" name="title" id="showtitle" value='{{ reference.title }}' placeholder="" />
@@ -138,7 +138,7 @@
 
 					</div>
 				</div>
-
+				{% endfor %}
 			<!-- Footer -->
 				<footer id="footer">
 					<ul class="icons">
@@ -169,7 +169,7 @@
 				document.getElementById("showmessage").disabled = false;
 			}
 			</script>
-			!-- Scripts -->
+			<!-- Scripts -->
 			<script src="{% static 'mainapp/assets/js/jquery.min.js' %}"></script>
 			<script src="{% static 'mainapp/assets/js/jquery.scrolly.min.js' %}"></script>
 			<script src="{% static 'mainapp/assets/js/jquery.dropotron.min.js' %}"></script>
