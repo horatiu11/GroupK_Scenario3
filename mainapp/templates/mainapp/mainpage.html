@@ -65,7 +65,7 @@
 											</div>
 										</div>
 										<div class="12u$">
-											<textarea name="notes" id="message" placeholder="Write your notes" rows="4"></textarea>
+											<textarea        name="notes" id="message" placeholder="Write your notes" rows="4"></textarea>
 										</div>
 										<div class="12u$">
 											<ul class="actions">
@@ -91,25 +91,26 @@
 						<!-- Content -->
 							<section id="content">				
 							  <div class="resultform">
-							  	<header><h2><b><center>List Number 1</center></b></h2></header>
+							  	<header><h2><b><center>{{ referenceList.name }}</center></b></h2></header>
 								<h3 class="major"><b><center> </center></b></h3>
 
-							  	<h3><b><center>Reference 1</center></b></h3>
+								{% for reference in references %}
+							  	<h3><b><center>Reference {{ reference.id }}</center></b></h3>
 							  	<div><b>Title: </b></div>
-								<input type="text" name="title" id="showtitle" value="" placeholder="" />
+								<input type="text" name="title" id="showtitle" value='{{ reference.title }}' placeholder="" />
 
 								<div><b>Author's Name: </b></div>
-								<input type="text" name="autname" id="showautname" value="" placeholder="" />
+								<input type="text" name="autname" id="showautname" value="{{ reference.author }}" placeholder="" />
 
 								<div><b>Source: </b></div>
-								<input type="text" name="category" id="showcategory" value="" placeholder="" />
+								<input type="text" name="category" id="showcategory" value="{{ reference.source }}" placeholder="" />
 
 
 							  	<div><b>URL: </b></div>
-								<input type="text" name="urlink" id="showurlink" value="" placeholder="" />
+								<input type="text" name="urlink" id="showurlink" value="{{ reference.website }}" placeholder="" />
 
 							  	<div><b>Notes: </b></div>
-								<textarea  name="message" id="showmessage" value="" placeholder=""></textarea>
+								<textarea  name="message" id="showmessage" placeholder="">{{ reference.notes }}</textarea>
 
 								<br>
 								<div class="middleasezbutton">
@@ -131,6 +132,7 @@
 										</div>
 									</div>
 								</div>
+								{% endfor %}
 
 
 

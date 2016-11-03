@@ -17,5 +17,5 @@ class Reference(models.Model):
 	title = models.CharField(max_length=200)
 	author = models.CharField(max_length=200)
 	website = models.CharField(max_length=1000)
-	source = models.CharField(max_length =100)
+	source = models.CharField(max_length=100)
 	notes = models.CharField(max_length=5000)
