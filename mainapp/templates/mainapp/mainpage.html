@@ -4,30 +4,31 @@
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
-
-{% load static %}
-
 <html>
 	<head>
 		<title>ReferenceME</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
-		<link rel="stylesheet" href="{% static 'mainapp/assets/css/main.css' %}" />
+		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<link rel="stylesheet" href="assets/css/bootstrap.minn.css"/>
+
+  		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 	</head>
 	<body>
 		<div id="page-wrapper">
 
 			<!-- Header -->
 				<header id="header">
-					<h1 id="logo"><a href="{% url 'mainapp:index' %}">ReferenceME</a></h1>
+					<h1 id="logo"><a href="index.html">ReferenceME</a></h1>
 					<nav id="nav">
 						<ul>
-							<li><p>Welcome, {{ request.user.first_name }}!</p></li>
-							<li><a href="{% url 'mainapp:index' %}">Home</a></li>
-							<li><a href="{% url 'mainapp:signout' %}" class="button special">Log Out</a></li>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="#" class="button special">Log Out</a></li>
 						</ul>
 					</nav>
 				</header>
@@ -39,79 +40,105 @@
 						</header>
 							<!-- Form -->
 							<section id ="reference">
-								<form action="{% url 'mainapp:addref'%}" method="post">
-							          {% csrf_token %}
+								<form method="post" action="#">
 									<div class="row uniform 50%">
 										<div class="6u 12u$(xsmall)">
 											<input type="text" name="title" id="title" value="" placeholder="Title" />
 										</div>
 										<div class="6u 12u$(xsmall)">
-											<input type="text" name="author" id="autname" value="" placeholder="Author's Name" />
+											<input type="text" name="autname" id="autname" value="" placeholder="Author's Name" />
 										</div>
 										<div class="6u 12u$(xsmall)">
 											<input type="text" name="urlink" id="urlink" value="" placeholder="URL" />
 										</div>
 
-										<div class="6u 12u$">
+										<div class="6u 12u$(xsmall)">
+											<input type="text" name="souce" id="source" value="" placeholder="Source Type" />
+										</div>
+
+										<div class="12u$">
+											<textarea name="message" id="message" placeholder="Write your notes" rows="2"></textarea>
+										</div>
+										
+
+										<div class="6u 12u$(xsmall)">
 											<div class="select-wrapper">
-												<select name="source" id="category">
-													<option value="">- Source -</option>
-													<option value="Website">Website</option>
-													<option value="Book">Book</option>
-													<option value="Journal">Journal Article</option>
-													<option value="Newspaper">Newspaper</option>
-													<option value="5">Blog</option>
+												<select name="category" id="category">
+													<option value="">Select your reference List   </option>
+													<option value="newlist">Create new list</option>
+													<option value="1">List1</option>
+													<option value="2">List2</option>
+													<option value="3">List3</option>
 												</select>
 											</div>
 										</div>
-										<div class="12u$">
-											<textarea        name="notes" id="message" placeholder="Write your notes" rows="4"></textarea>
+										<div class="6u 12u$">
+											<input type="text" name="newlistname" id="newlistname" value="" placeholder="Name your new reference list" />
 										</div>
+										<br>
 										<div class="12u$">
 											<ul class="actions">
-												<li><input type="submit" value="Create List" class="special" /></li>
-												<li><input type="reset" value="Reset all" /></li>
+												<li><input type="submit" value="Add your reference" class="special" /></li>
 											</ul>
 										</div>
 									</div>
-									<a href="#main" class="goto-next scrolly">Next</a>
-								</form>
+<!-- 									<a href="#main" class="goto-next scrolly">Next</a>
+ -->								</form>
 							</section>
  					</div>
 				</section>
 
 
+
+<!-- Try -->
+
+
 			<!-- Main -->
 				<div id="main" class="wrapper style1">
+
 					<div class="container">
 						<header class="major">
 							<h2>Keep track of all your references</h2>
 						</header>
-						{% for list in referencesLists %}
-						<!-- Content -->
-							<section id="content">				
-							  <div class="resultform">
-							  	<header><h2><b><center>{{ list.name }}</center></b></h2></header>
-								<h3 class="major"><b><center> </center></b></h3>
+ 
 
-								{% for reference in list.reference_set.all %}
-							  	<h3><b><center>Reference {{ reference.id }}</center></b></h3>
+						<!-- Content -->
+							<section id="content">			
+
+	
+							  <div class="resultform">
+							  	<header><h3 class="major"><b><center>List Number 1</center></b></h2></header><br>
+
+							  	<div class="panel panel-default">
+							      <div class="panel-heading">
+							        <h4 class="panel-title">
+							          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" align="center">Reference 1</a>
+							        </h4>
+							      </div>
+							    <div id="collapse1" class="panel-collapse collapse">
+							    <div class="panel-body">
+<!-- 							    	Content of the Reference -->
+        						<h3><b><center>Reference 1</center></b></h3>
 							  	<div><b>Title: </b></div>
-								<input type="text" name="title" id="showtitle" value='{{ reference.title }}' placeholder="" />
+								<div class="12u 12u$(xsmall)">
+								<input type="text" name="title" id="showtitle" value="" placeholder="" /></div>
 
 								<div><b>Author's Name: </b></div>
-								<input type="text" name="autname" id="showautname" value="{{ reference.author }}" placeholder="" />
+								<div class="12u 12u$(xsmall)">
+								<input type="text" name="autname" id="showautname" value="" placeholder="" /></div>
+
 
 								<div><b>Source: </b></div>
-								<input type="text" name="category" id="showcategory" value="{{ reference.source }}" placeholder="" />
-
+								<div class="12u 12u$(xsmall)">
+								<input type="text" name="category" id="showcategory" value="" placeholder="" /></div>
 
 							  	<div><b>URL: </b></div>
-								<input type="text" name="urlink" id="showurlink" value="{{ reference.website }}" placeholder="" />
+							  	<div class="12u 12u$(xsmall)">
+								<input type="text" name="urlink" id="showurlink" value="" placeholder="" /></div>
 
 							  	<div><b>Notes: </b></div>
-								<textarea  name="message" id="showmessage" placeholder="">{{ reference.notes }}</textarea>
-
+							  	<div class="12u 12u$(xsmall)">
+								<textarea  name="message" id="showmessage" value="" placeholder=""></textarea></div>
 								<br>
 								<div class="middleasezbutton">
 									<div class="row">
@@ -132,13 +159,122 @@
 										</div>
 									</div>
 								</div>
-								{% endfor %}
+							  </div></div>
+						    </div>
+<!-- 						    Reference2 -->
+  								<div class="panel panel-default">
+							      <div class="panel-heading">
+							        <h4 class="panel-title">
+							          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2" align="center">Reference 2</a>
+							        </h4>
+							      </div>
+							    <div id="collapse2" class="panel-collapse collapse">
+							    <div class="panel-body">
+        						<h3><b><center>Reference 2</center></b></h3>
+							  	<div><b>Title: </b></div>
+								<div class="12u 12u$(xsmall)">
+								<input type="text" name="title" id="showtitle" value="" placeholder="" /></div>
+
+								<div><b>Author's Name: </b></div>
+								<div class="12u 12u$(xsmall)">
+								<input type="text" name="autname" id="showautname" value="" placeholder="" /></div>
 
 
+								<div><b>Source: </b></div>
+								<div class="12u 12u$(xsmall)">
+								<input type="text" name="category" id="showcategory" value="" placeholder="" /></div>
 
+							  	<div><b>URL: </b></div>
+							  	<div class="12u 12u$(xsmall)">
+								<input type="text" name="urlink" id="showurlink" value="" placeholder="" /></div>
+
+							  	<div><b>Notes: </b></div>
+							  	<div class="12u 12u$(xsmall)">
+								<textarea  name="message" id="showmessage" value="" placeholder=""></textarea></div>
+								<br>
+								<div class="middleasezbutton">
+									<div class="row">
+										<div class="3u 6u$(medium) 12u$(xsmall)">
+											<ul class="actions vertical small">
+												<li><button onclick="myFunction()" class="button special fit small"/>Edit</button></li>
+											</ul>
+										</div>
+										<div class="3u 6u$(medium) 12u$(xsmall)">
+											<ul class="actions vertical small">
+												<li><button onclick="myFunction()" class="button special fit small"/>Save</button></li>
+											</ul>
+										</div>
+										<div class="3u$ 6u$(medium) 12u$(xsmall)">
+											<ul class="actions vertical small">
+												<li><button type="submit"  class="button special fit small"/>Delete</button></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							  </div></div>
+						    </div>
+
+<!-- 							Reference 3
+ -->
+   								<div class="panel panel-default">
+							      <div class="panel-heading">
+							        <h4 class="panel-title">
+							          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3" align="center">Reference 3</a>
+							        </h4>
+							      </div>
+							    <div id="collapse3" class="panel-collapse collapse">
+							    <div class="panel-body">
+        						<h3><b><center>Reference 3</center></b></h3>
+							  	<div><b>Title: </b></div>
+								<div class="12u 12u$(xsmall)">
+								<input type="text" name="title" id="showtitle" value="" placeholder="" /></div>
+
+								<div><b>Author's Name: </b></div>
+								<div class="12u 12u$(xsmall)">
+								<input type="text" name="autname" id="showautname" value="" placeholder="" /></div>
+
+
+								<div><b>Source: </b></div>
+								<div class="12u 12u$(xsmall)">
+								<input type="text" name="category" id="showcategory" value="" placeholder="" /></div>
+
+							  	<div><b>URL: </b></div>
+							  	<div class="12u 12u$(xsmall)">
+								<input type="text" name="urlink" id="showurlink" value="" placeholder="" /></div>
+
+							  	<div><b>Notes: </b></div>
+							  	<div class="12u 12u$(xsmall)">
+								<textarea  name="message" id="showmessage" value="" placeholder=""></textarea></div>
+								<br>
+								<div class="middleasezbutton">
+									<div class="row">
+										<div class="3u 6u$(medium) 12u$(xsmall)">
+											<ul class="actions vertical small">
+												<li><button onclick="myFunction()" class="button special fit small"/>Edit</button></li>
+											</ul>
+										</div>
+										<div class="3u 6u$(medium) 12u$(xsmall)">
+											<ul class="actions vertical small">
+												<li><button onclick="myFunction()" class="button special fit small"/>Save</button></li>
+											</ul>
+										</div>
+										<div class="3u$ 6u$(medium) 12u$(xsmall)">
+											<ul class="actions vertical small">
+												<li><button type="submit"  class="button special fit small"/>Delete</button></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							  </div></div>
+						    </div>
+
+						  </div>
+						 
+							</section>
 					</div>
 				</div>
-				{% endfor %}
+
+
 			<!-- Footer -->
 				<footer id="footer">
 					<ul class="icons">
@@ -153,12 +289,19 @@
 
 		<!-- Scripts -->
 			<script>
-			document.getElementById("showtitle").disabled = true;
-			document.getElementById("showautname").disabled = true;
-			document.getElementById("showcategory").disabled = true;
-			document.getElementById("showurlink").disabled = true;
-			document.getElementById("showmessage").disabled = true;
+				/*$('#category').change(function{
+					if()
+				});
+			 	document.getElementById("newlistname").disabled = false;
 
+			</script>
+			<script>
+				document.getElementById("showtitle").disabled = true;
+				document.getElementById("showautname").disabled = true;
+				document.getElementById("showcategory").disabled = true;
+				document.getElementById("showurlink").disabled = true;
+				document.getElementById("showmessage").disabled = true;
+				document.getElementById("newlistname").disabled = true;
 			</script>
 			<script>
 			function myFunction() {
@@ -169,14 +312,18 @@
 				document.getElementById("showmessage").disabled = false;
 			}
 			</script>
-			<!-- Scripts -->
-			<script src="{% static 'mainapp/assets/js/jquery.min.js' %}"></script>
-			<script src="{% static 'mainapp/assets/js/jquery.scrolly.min.js' %}"></script>
-			<script src="{% static 'mainapp/assets/js/jquery.dropotron.min.js' %}"></script>
-			<script src="{% static 'mainapp/assets/js/jquery.scrollex.min.js' %}"></script>
-			<script src="{% static 'mainapp/assets/js/skel.min.js' %}"></script>
-			<script src="{% static 'mainapp/assets/js/util.js' %}"></script>
+
+	
+
+		<!-- Our Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="{% static 'mainapp/assets/js/main.js' %}"></script>
+			<script src="assets/js/main.js"></script>
+
 	</body>
 </html>
