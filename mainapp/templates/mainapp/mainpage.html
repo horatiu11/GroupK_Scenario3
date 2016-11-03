@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<!--
+	Landed by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>ReferenceME</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header">
+					<h1 id="logo"><a href="index.html">ReferenceME</a></h1>
+					<nav id="nav">
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="#" class="button special">Log Out</a></li>
+						</ul>
+					</nav>
+				</header>
+
+				<section id="referenceadd" class="wrapper style1 special fade-up">
+					<div class="container">
+						<header class="major">
+							<h2>Create your favourite reference lists</h2>
+						</header>
+							<!-- Form -->
+							<section id ="reference">
+								<form method="post" action="#">
+									<div class="row uniform 50%">
+										<div class="6u 12u$(xsmall)">
+											<input type="text" name="title" id="title" value="" placeholder="Title" />
+										</div>
+										<div class="6u 12u$(xsmall)">
+											<input type="text" name="autname" id="autname" value="" placeholder="Author's Name" />
+										</div>
+										<div class="6u 12u$(xsmall)">
+											<input type="text" name="urlink" id="urlink" value="" placeholder="URL" />
+										</div>
+
+										<div class="6u 12u$">
+											<div class="select-wrapper">
+												<select name="category" id="category">
+													<option value="">- Source -</option>
+													<option value="1">Website</option>
+													<option value="2">Book</option>
+													<option value="3">Journal Article</option>
+													<option value="4">Newspaper</option>
+													<option value="5">Blog</option>
+												</select>
+											</div>
+										</div>
+										<div class="12u$">
+											<textarea name="message" id="message" placeholder="Write your notes" rows="4"></textarea>
+										</div>
+										<div class="12u$">
+											<ul class="actions">
+												<li><input type="submit" value="Create List" class="special" /></li>
+												<li><input type="reset" value="Log In" /></li>
+											</ul>
+										</div>
+									</div>
+									<a href="#main" class="goto-next scrolly">Next</a>
+								</form>
+							</section>
+ 					</div>
+				</section>
+
+
+			<!-- Main -->
+				<div id="main" class="wrapper style1">
+					<div class="container">
+						<header class="major">
+							<h2>Keep track of all your references</h2>
+						</header>
+
+						<!-- Content -->
+							<section id="content">				
+							  <div class="resultform">
+							  	<header><h2><b><center>List Number 1</center></b></h2></header>
+								<h3 class="major"><b><center> </center></b></h3>
+
+							  	<h3><b><center>Reference 1</center></b></h3>
+							  	<div><b>Title: </b></div>
+								<input type="text" name="title" id="showtitle" value="" placeholder="" />
+
+								<div><b>Author's Name: </b></div>
+								<input type="text" name="autname" id="showautname" value="" placeholder="" />
+
+								<div><b>Source: </b></div>
+								<input type="text" name="category" id="showcategory" value="" placeholder="" />
+
+
+							  	<div><b>URL: </b></div>
+								<input type="text" name="urlink" id="showurlink" value="" placeholder="" />
+
+							  	<div><b>Notes: </b></div>
+								<textarea  name="message" id="showmessage" value="" placeholder=""></textarea>
+
+								<br>
+								<div class="middleasezbutton">
+									<div class="row">
+										<div class="3u 6u$(medium) 12u$(xsmall)">
+											<ul class="actions vertical small">
+												<li><button onclick="myFunction()" class="button special fit small"/>Edit</button></li>
+											</ul>
+										</div>
+										<div class="3u 6u$(medium) 12u$(xsmall)">
+											<ul class="actions vertical small">
+												<li><button onclick="myFunction()" class="button special fit small"/>Save</button></li>
+											</ul>
+										</div>
+										<div class="3u$ 6u$(medium) 12u$(xsmall)">
+											<ul class="actions vertical small">
+												<li><button type="submit"  class="button special fit small"/>Delete</button></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+
+
+
+					</div>
+				</div>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="https://github.com/horatiu11/GroupK_Scenario3" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; ReferenceME. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script>
+			document.getElementById("showtitle").disabled = true;
+			document.getElementById("showautname").disabled = true;
+			document.getElementById("showcategory").disabled = true;
+			document.getElementById("showurlink").disabled = true;
+			document.getElementById("showmessage").disabled = true;
+
+			</script>
+			<script>
+			function myFunction() {
+				document.getElementById("showtitle").disabled = false;
+				document.getElementById("showautname").disabled = false;
+				document.getElementById("showcategory").disabled = false;
+				document.getElementById("showurlink").disabled = false;
+				document.getElementById("showmessage").disabled = false;
+			}
+			</script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
