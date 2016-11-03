@@ -86,6 +86,8 @@ def signin(request):
 def addref(request):
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect(reverse('mainapp:authentication'))
+	
+	selectedList = int(request.POST['selectedList'])
 	title = request.POST['title']
 	author =  request.POST['author']
 	link =  request.POST['urlink']
@@ -94,8 +96,12 @@ def addref(request):
 
 	u = request.user
 
-	reflist = ReferenceList(owner = u, name = "pula", createdAt = timezone.now())
-	reflist.save()
+	if selectedList is 0:
+		listname = request.POST['listname']
+		reflist = ReferenceList(owner = u, name = listname, createdAt = timezone.now())
+		reflist.save()
+	else:
+		reflist = ReferenceList.objects.get(id = selectedList)
 
 	ref = Reference(reference_list = reflist, title = title, author = author, website = link, source = source, notes = notes)
 	ref.save()
@@ -103,12 +109,16 @@ def addref(request):
 	return HttpResponseRedirect(reverse('mainapp:mainpage'))
 
 def deleteref(request):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect(reverse('mainapp:authentication'))
 	ID = request.POST['id']
 	Reference.objects.filter(id = ID).delete()
 
 	return HttpResponseRedirect(reverse('mainapp:mainpage'))
 
 def deletelist(request):
+	if not request.user.is_authenticated:
+		return HttpResponseRedirect(reverse('mainapp:authentication'))
 	ID = request.POST['id']
 	ReferenceList.objects.filter(id = ID).delete()
 
@@ -122,13 +132,14 @@ def saveref(request):
 	link =  request.POST['urlink']
 	source =  request.POST['source']
 	notes = request.POST['notes']
+	ID = request.POST['id']
 
-	u = request.user
-
-	ref = Reference.objects.get()#needs completing
+	ref = Reference.objects.get(id = ID)
 	ref.title = title
 	ref.author = author
 	ref.link = link
 	ref.source = source
 	ref.notes = notes
 	ref.save()
+
+	return HttpResponseRedirect(reverse('mainapp:mainpage'))
