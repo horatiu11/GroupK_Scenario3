@@ -36,7 +36,7 @@ def signup(request):
 	password = request.POST['password']
 	repassword = request.POST['repassword']
 	
-	if not(user and email and password and repassword):
+	if not(user and email and password and repassword and firstname and lastname):
 		return HttpResponse('Complete all fields!')
 	
 	if password != repassword:
