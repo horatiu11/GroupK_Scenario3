@@ -39,13 +39,14 @@
 						</header>
 							<!-- Form -->
 							<section id ="reference">
-								<form method="post" action="#">
+								<form action="{% url 'mainapp:addref'%}" method="post">
+							          {% csrf_token %}
 									<div class="row uniform 50%">
 										<div class="6u 12u$(xsmall)">
 											<input type="text" name="title" id="title" value="" placeholder="Title" />
 										</div>
 										<div class="6u 12u$(xsmall)">
-											<input type="text" name="autname" id="autname" value="" placeholder="Author's Name" />
+											<input type="text" name="author" id="autname" value="" placeholder="Author's Name" />
 										</div>
 										<div class="6u 12u$(xsmall)">
 											<input type="text" name="urlink" id="urlink" value="" placeholder="URL" />
@@ -53,23 +54,23 @@
 
 										<div class="6u 12u$">
 											<div class="select-wrapper">
-												<select name="category" id="category">
+												<select name="source" id="category">
 													<option value="">- Source -</option>
-													<option value="1">Website</option>
-													<option value="2">Book</option>
-													<option value="3">Journal Article</option>
-													<option value="4">Newspaper</option>
+													<option value="Website">Website</option>
+													<option value="Book">Book</option>
+													<option value="Journal">Journal Article</option>
+													<option value="Newspaper">Newspaper</option>
 													<option value="5">Blog</option>
 												</select>
 											</div>
 										</div>
 										<div class="12u$">
-											<textarea name="message" id="message" placeholder="Write your notes" rows="4"></textarea>
+											<textarea name="notes" id="message" placeholder="Write your notes" rows="4"></textarea>
 										</div>
 										<div class="12u$">
 											<ul class="actions">
 												<li><input type="submit" value="Create List" class="special" /></li>
-												<li><input type="reset" value="Log In" /></li>
+												<li><input type="reset" value="Reset all" /></li>
 											</ul>
 										</div>
 									</div>
