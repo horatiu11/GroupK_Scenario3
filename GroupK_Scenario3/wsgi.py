@@ -1,5 +1,5 @@
 """
-WSGI config for ScenarioProject project.
+WSGI config for GroupK_Scenario3 project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "ScenarioProject.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "GroupK_Scenario3.settings")
 
 application = get_wsgi_application()
