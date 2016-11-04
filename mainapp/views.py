@@ -27,9 +27,8 @@ def mainpage(request):
 		reflist = ReferenceList.objects.all().filter(owner = request.user)
 	except ReferenceList.DoesNotExist:
 		reflist = None
-	#return HttpResponse(reflist.hostdata_set.all())
-	#references = Reference.objects.all()
-	context = {'referencesLists' : reflist}#, 'references' : references}
+
+	context = {'referencesLists' : reflist}
 	return render(request, 'mainapp/mainpage.html', context)
 
 def signout(request):
@@ -47,21 +46,26 @@ def signup(request):
 	repassword = request.POST['repassword']
 	
 	if not(user and email and password and repassword and firstname and lastname):
-		return HttpResponse('Complete all fields!')
+		request.session['errormessage'] = 'Please complete all field in registration form!'
+		return HttpResponseRedirect(reverse('mainapp:errormsg'))
 	
 	if password != repassword:
-		return HttpResponse('Passwords do not match')
-	
+		request.session['errormessage'] = 'The passwords inserted do not match!'
+		return HttpResponseRedirect(reverse('mainapp:errormsg'))
+
 	if len(password) < 6:
-		return HttpResponse('Passwords must be at least 6 characters long')
+		request.session['errormessage'] = 'Passwords must be at least 6 characters long!'
+		return HttpResponseRedirect(reverse('mainapp:errormsg'))
 	
 	try:
 		validators.validate_email(email)
 	except:
-		return HttpResponse('Email is not valid!')
+		request.session['errormessage'] = 'Email is not valid!'
+		return HttpResponseRedirect(reverse('mainapp:errormsg'))
 	
 	if User.objects.filter(email=email).exists():
-		return HttpResponse("Email already exists!")
+		request.session['errormessage'] = 'Email already used!'
+		return HttpResponseRedirect(reverse('mainapp:errormsg'))
 
 	user = User.objects.create_user(user, email, password)
 	user.first_name = firstname
@@ -74,25 +78,41 @@ def signin(request):
 		return HttpResponseRedirect(reverse('mainapp:mainpage'))
 	email = request.POST['email']
 	password =  request.POST['password']
+
+	try:
+		user1 = User.objects.get(email = email)
+	except User.DoesNotExist:
+		request.session['errormessage'] = 'Credentials are wrong!'
+		return HttpResponseRedirect(reverse('mainapp:errormsg'))
+	
 	user1 = User.objects.get(email = email)
-	#return HttpResponse(user1.password);
+
 	user = authenticate(username = user1.username, password = password)
 	if user is not None:
 		login(request, user)
 		return HttpResponseRedirect(reverse('mainapp:index'))
 	else:
-		return HttpResponse('Email or password did not match')
+		request.session['errormessage'] = 'Credentials are wrong!'
+		return HttpResponseRedirect(reverse('mainapp:errormsg'))
 
 def addref(request):
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect(reverse('mainapp:authentication'))
 	
-	selectedList = int(request.POST['selectedList'])
 	title = request.POST['title']
+	if title is '':
+		request.session['errormessage'] = 'A title is required!'
+		return HttpResponseRedirect(reverse('mainapp:errormsg'))
+
 	author =  request.POST['author']
 	link =  request.POST['urlink']
 	source =  request.POST['source']
 	notes = request.POST['notes']
+
+	selectedList = int(request.POST.get('selectedList', -1))
+	if selectedList is -1:
+		request.session['errormessage'] = 'You should choose a list to add the reference in!'
+		return HttpResponseRedirect(reverse('mainapp:errormsg'))
 
 	u = request.user
 
@@ -128,6 +148,10 @@ def saveref(request):
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect(reverse('mainapp:authentication'))
 	title = request.POST['title']
+	if title is '':
+		request.session['errormessage'] = 'A title is required!'
+		return HttpResponseRedirect(reverse('mainapp:errormsg'))
+
 	author =  request.POST['author']
 	link =  request.POST['urlink']
 	source =  request.POST['source']
@@ -143,3 +167,10 @@ def saveref(request):
 	ref.save()
 
 	return HttpResponseRedirect(reverse('mainapp:mainpage'))
+
+def errormsg(request):
+	errormessage = request.session['errormessage']
+	request.session['errormessage'] = None
+	
+	context = {'errormessage' : errormessage}
+	return render(request, 'mainapp/errormessage.html', context)

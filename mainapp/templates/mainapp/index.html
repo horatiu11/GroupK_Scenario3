@@ -121,26 +121,17 @@
 									{% csrf_token %}
 									<div class="row uniform 50%">
 										<div class="6u 12u$(xsmall)">
-											<input type="text" name="title" id="title" value="" placeholder="Title" />
+											<input type="text" name="title" id="title" value="" placeholder="Title" disabled/>
 										</div>
 										<div class="6u 12u$(xsmall)">
-											<input type="text" name="autname" id="autname" value="" placeholder="Author's Name" />
+											<input type="text" name="autname" id="autname" value="" placeholder="Author's Name" disabled/>
 										</div>
 										<div class="6u 12u$(xsmall)">
-											<input type="text" name="urlink" id="urlink" value="" placeholder="URL" />
+											<input type="text" name="urlink" id="urlink" value="" placeholder="URL" disabled/>
 										</div>
 
-										<div class="6u 12u$">
-											<div class="select-wrapper">
-												<select name="category" id="category">
-													<option value="">- Source -</option>
-													<option value="1">Website</option>
-													<option value="2">Book</option>
-													<option value="3">Journal Article</option>
-													<option value="4">Newspaper</option>
-													<option value="5">Blog</option>
-												</select>
-											</div>
+										<div class="6u 12u$(xsmall)">
+											<input type="text" name="source" id="source" value="" placeholder="Source Type" disabled/>
 										</div>
 										<!-- <div class="4u 12u$(medium)">
 											<input type="radio" id="priority-low" name="priority" checked>
@@ -163,12 +154,12 @@
 											<label for="human">I am a human and not a robot</label>
 										</div> -->
 										<div class="12u$">
-											<textarea name="message" id="message" placeholder="Write your notes" rows="4"></textarea>
+											<textarea name="message" id="message" placeholder="Write your notes" rows="4" disabled></textarea>
 										</div>
 										<div class="12u$">
 											<ul class="actions">
-												<li><input type="submit" value="Create List" class="special" /></li>
-												<li><input type="reset" value="Log In" /></li>
+												<li><input type="button" onclick="goNext()" value="Try it out!" class="special" /></li>
+												
 											</ul>
 										</div>
 									</div>
@@ -212,6 +203,13 @@
 		</div>
 
 		<!-- Scripts -->
+
+			<script type="text/javascript">
+				function goNext(){
+					window.location.href = "{% url 'mainapp:authentication' %}"
+				}
+			</script>
+
 			<script src="{% static 'mainapp/assets/js/jquery.min.js' %}"></script>
 			<script src="{% static 'mainapp/assets/js/jquery.scrolly.min.js' %}"></script>
 			<script src="{% static 'mainapp/assets/js/jquery.dropotron.min.js' %}"></script>

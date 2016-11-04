@@ -67,7 +67,7 @@
 										<div class="6u 12u$(xsmall)">
 											<div class="select-wrapper">
 												<select name="selectedList" id="selectedList">
-													<option selected disabled value="">Select your reference List   </option>
+													<option selected disabled value="-1">Select your reference List   </option>
 													<option value="0">Create new list</option>
 													{% for list in referencesLists %}
 													<option value="{{ list.id }}">{{ list.name }}</option>

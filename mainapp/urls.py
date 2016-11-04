@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^deleteref/$', views.deleteref, name='deleteref'),
     url(r'^deletelist/$', views.deletelist, name='deletelist'),
     url(r'^saveref/$', views.saveref, name='saveref'),
+    url(r'^errormsg/$', views.errormsg, name='errormsg'),
 ]
