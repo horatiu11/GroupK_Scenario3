@@ -35,7 +35,11 @@
 					<div class="container">
 						<header class="major">
 							<h2>ReferenceME</h2>
-							<p>Keep your citation lists updated</p>
+							{% if request.session.regist %}
+								<p>Registration successful! Sign in to use the website</p>
+							{% else %}
+								<p>Keep your citation lists updated</p>
+							{% endif %}
 						</header>
 
 						<!-- Content -->

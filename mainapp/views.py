@@ -11,6 +11,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 
 def index(request):
+	if 'regist' in request.session:
+		del request.session['regist']
+
 	if request.user.is_authenticated:
 		return HttpResponseRedirect(reverse('mainapp:mainpage'))
 	return render(request, 'mainapp/index.html')
@@ -21,6 +24,9 @@ def authentication(request):
 	return render(request, 'mainapp/login-signup.html')
 
 def mainpage(request):
+	if 'regist' in request.session:
+		del request.session['regist']
+
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect(reverse('mainapp:authentication'))
 	try:
@@ -32,10 +38,16 @@ def mainpage(request):
 	return render(request, 'mainapp/mainpage.html', context)
 
 def signout(request):
+	if 'regist' in request.session:
+		del request.session['regist']
+
 	logout(request)
 	return HttpResponseRedirect(reverse('mainapp:index'))
 
 def signup(request):
+	if 'regist' in request.session:
+		del request.session['regist']
+
 	if request.user.is_authenticated:
 		return HttpResponseRedirect(reverse('mainapp:mainpage'))
 	firstname = request.POST['firstname']
@@ -71,9 +83,13 @@ def signup(request):
 	user.first_name = firstname
 	user.last_name = lastname
 	user.save()
-	return HttpResponseRedirect(reverse('mainapp:index'))
+	request.session['regist'] = 'YES'
+	return HttpResponseRedirect(reverse('mainapp:authentication'))
 
 def signin(request):
+	if 'regist' in request.session:
+		del request.session['regist']
+
 	if request.user.is_authenticated:
 		return HttpResponseRedirect(reverse('mainapp:mainpage'))
 	email = request.POST['email']
@@ -96,6 +112,9 @@ def signin(request):
 		return HttpResponseRedirect(reverse('mainapp:errormsg'))
 
 def addref(request):
+	if 'regist' in request.session:
+		del request.session['regist']
+
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect(reverse('mainapp:authentication'))
 	
@@ -129,6 +148,9 @@ def addref(request):
 	return HttpResponseRedirect(reverse('mainapp:mainpage'))
 
 def deleteref(request):
+	if 'regist' in request.session:
+		del request.session['regist']
+
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect(reverse('mainapp:authentication'))
 	ID = request.POST['id']
@@ -137,6 +159,9 @@ def deleteref(request):
 	return HttpResponseRedirect(reverse('mainapp:mainpage'))
 
 def deletelist(request):
+	if 'regist' in request.session:
+		del request.session['regist']
+
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect(reverse('mainapp:authentication'))
 	ID = request.POST['id']
@@ -145,6 +170,9 @@ def deletelist(request):
 	return HttpResponseRedirect(reverse('mainapp:mainpage'))
 
 def saveref(request):
+	if 'regist' in request.session:
+		del request.session['regist']
+
 	if not request.user.is_authenticated:
 		return HttpResponseRedirect(reverse('mainapp:authentication'))
 	title = request.POST['title']
@@ -161,7 +189,7 @@ def saveref(request):
 	ref = Reference.objects.get(id = ID)
 	ref.title = title
 	ref.author = author
-	ref.link = link
+	ref.website = link
 	ref.source = source
 	ref.notes = notes
 	ref.save()
@@ -169,6 +197,9 @@ def saveref(request):
 	return HttpResponseRedirect(reverse('mainapp:mainpage'))
 
 def errormsg(request):
+	if 'regist' in request.session:
+		del request.session['regist']
+
 	errormessage = request.session['errormessage']
 	request.session['errormessage'] = None
 	
